@@ -1,0 +1,32 @@
+page size 595, 842 
+view xmin 0.2 
+view xmax 0.8 
+view ymin 0.85 
+view ymax 1.25 
+world xmin 8.551284930000001 
+world xmax 16.245704200000002 
+world ymin 9.527404500000001 
+world ymax 25.489959000000002 
+ G0  type xy 
+  xaxis  label font "Helvetica" 
+  xaxis  label char size 1.0 
+  xaxis  ticklabel font "Helvetica" 
+  xaxis  ticklabel char size 1.0 
+  yaxis  label font "Helvetica" 
+  yaxis  label char size 1.0 
+  yaxis  ticklabel font "Helvetica" 
+  yaxis  ticklabel char size 1.0 
+  title  "Spectrum clustering" 
+  title  font "Helvetica" 
+  title  size 1.0 
+  subtitle  "number of clusters =4 "
+  subtitle  font "Helvetica" 
+  subtitle  size 1.0 
+read xycolor "/home/roshi/zoo/projects/pysa/Examples/Cluster/apo_spectrum.data" 
+    S0 type xycolor 
+    S0 symbol 1 
+    S0 symbol fill pattern 1 
+    S0 symbol size 0.600000 
+    S0 line type 0 
+    S0 line color 1 
+    S0 legend off 

@@ -1,0 +1,43 @@
+#!/usrenv python
+#Installation directory with binaries
+install_dir = '/home/roshi/zoo/projects/pysa/bin/'
+#install_dir = 'C:\pysa\bin\'
+
+#Installation directory with documentation
+doc_dir = '/home/roshi/zoo/projects/pysa/Documentation/'
+#install_dir = 'C:\pysa\Documentation\'
+
+#Installation directory with examples
+example_dir = '/home/roshi/zoo/projects/pysa/Examples/'
+#example_dir = 'C:\pysa\Examples\'
+
+#size of main app window
+width = 1200
+height = 800
+
+#Define commands to launch auxilary applications
+
+#IPython console in own terminal window
+cmdIP = 'gnome-terminal -- ipython3'
+
+#Grace
+cmdGG = 'ggrace'
+#cmdGG = 'xmgrace'
+#cmdGG = 'gracegtk'
+
+#Grace batch mode
+cmdGB = 'ggrace -batch'
+#cmdGB = 'gracebat'
+
+#Statistics - R
+cmdR = 'gnome-terminal -- R'
+#cmdR = 'C:\R\Rgui.exe'
+
+#Terminal Shell
+#cmdSh = 'mate-terminal'
+cmdSh = 'gnome-terminal'
+#cmdSh = 'cmd'
+
+#PySpread
+cmdspread='pyspread'
+
