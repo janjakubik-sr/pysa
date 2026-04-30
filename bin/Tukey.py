@@ -17,7 +17,7 @@ from statsmodels.stats.multicomp import MultiComparison
 dialog = wx.FileDialog(None, "Choose a data file for Multiple comparisons\nData must be in two columns.\nGroups in the first.", os.getcwd(), "","*.dat", wx.FD_OPEN)
 if dialog.ShowModal() == wx.ID_OK:
     selected=dialog.GetPath()
-    data=np.loadtxt(selected, delimiter=',', dtype=[('Group','|U8'),('Score', 'float')])   
+    data=np.loadtxt(selected, dtype=[('Group','|U8'),('Score', 'float')])   
     columns = np.size(data[0])
     if columns == 1:
         #Select uncertainty level
