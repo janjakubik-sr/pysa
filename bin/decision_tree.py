@@ -5,7 +5,7 @@ Created on Wed Nov  6 16:11:04 2024
 
 @author: Jan Jakubik jan.jakubik@fgu.cas.cz
 """
-import glob, os
+import  os
 import time
 import wx
 import pandas as pd

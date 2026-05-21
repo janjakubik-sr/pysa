@@ -10,8 +10,6 @@ import wx
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
-from statsmodels.stats.multicomp import pairwise_tukeyhsd
-from statsmodels.stats.multicomp import MultiComparison
 
 dialog = wx.FileDialog(None, "Choose a data file for ANOVA", os.getcwd(), "","*.dat", wx.FD_OPEN)
 if dialog.ShowModal() == wx.ID_OK:

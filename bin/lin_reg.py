@@ -5,12 +5,11 @@ Created on Fri Jul 15 12:12:20 2016
 @author: Jan Jakubik jan.jakubik@fgu.cas.cz
 """
 
-import glob,os
+import os
 import time
 import wx
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy
 from scipy import stats
 
 dialog = wx.FileDialog(None, "Choose a data file to perform linear regression", os.getcwd(), "","*.dat", wx.FD_OPEN)

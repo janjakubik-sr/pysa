@@ -5,16 +5,13 @@ Created on Wed Nov  6 14:27:26 2024
 
 @author: Jan Jakubik jan.jakubik@fgu.cas.cz
 """
-import glob,os
+import os
 import time
 import wx
 import pandas as pd
-import numpy as np
 import lightgbm as lgb
 import matplotlib.pyplot as plt
-from sklearn import linear_model
 import scipy
-from scipy import stats
 
 #error log
 if os.path.isfile("temp.log"):

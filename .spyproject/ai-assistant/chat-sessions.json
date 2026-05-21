@@ -1,0 +1,17 @@
+{
+  "version": 4,
+  "active_index": 0,
+  "sessions": [
+    {
+      "session_id": "54c6d5e29c3245748bde7ba4a4d7ff9e",
+      "title": "Chat 3",
+      "messages": [],
+      "created_at": "2026-05-21T12:22:28.626842Z",
+      "updated_at": "2026-05-21T12:22:28.626842Z",
+      "prompt_preset_id": "coding",
+      "temperature_override": null,
+      "max_tokens_override": null
+    }
+  ],
+  "history": []
+}

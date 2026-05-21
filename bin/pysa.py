@@ -166,12 +166,12 @@ class MainWindow(wx.Frame):
         correlMenu = wx.Menu()
         for id, label, helpText, handler in \
             [(wx.ID_ANY, 'Linear regression', 'Linear regression', self.OnLinReg),
-             (wx.ID_ANY, 'Person\'s correlation', 'Pearson\'s correlation', self.OnPCor),
-             (wx.ID_ANY, 'Person\'s correlation, data annotations', 'Pearson\'s correlation', self.OnPACor),
-             (wx.ID_ANY, 'Person\'s correlation, groups and data annotations', 'Pearson\'s correlation', self.OnPGACor),
-             (wx.ID_ANY, 'Spearman\'s correlation', 'Spearman\'s correlation', self.OnSCor),
-             (wx.ID_ANY, 'Spearman\'s correlation, data annotations', 'Spearman\'s correlation', self.OnSACor),
-             (wx.ID_ANY, 'Spearman\'s correlation, groups and data annotations', 'Spearman\'s correlation', self.OnSGACor),
+             (wx.ID_ANY, 'Person\'s correlation: x, y', 'Pearson\'s correlation', self.OnPCor),
+             (wx.ID_ANY, 'Person\'s correlation: x, y, annotations', 'Pearson\'s correlation', self.OnPACor),
+             (wx.ID_ANY, 'Person\'s correlation: x, y, groups, annotations', 'Pearson\'s correlation', self.OnPGACor),
+             (wx.ID_ANY, 'Spearman\'s correlation: x, y', 'Spearman\'s correlation', self.OnSCor),
+             (wx.ID_ANY, 'Spearman\'s correlation: x, y, annotations', 'Spearman\'s correlation', self.OnSACor),
+             (wx.ID_ANY, 'Spearman\'s correlation: x, y, groups, annotations', 'Spearman\'s correlation', self.OnSGACor),
              (wx.ID_ANY, 'Correlation Matrix Heat-Plot', 'Correlation Matrix', self.OnCorM),
 	      ]:
             if id == None:
@@ -198,7 +198,8 @@ class MainWindow(wx.Frame):
              (wx.ID_ANY, 'LGBM Classifier', 'Large Gradient Boosting Machine Classifier', self.OnLGBM),
              (wx.ID_ANY, 'LGBM test', 'LGBM test', self.OnLGBMtest),
              (wx.ID_ANY, 'MLM selection', 'Lazy Classifier MLM selection', self.OnMLMSel),
-             (wx.ID_ANY, 'Multiple Linear Regression', 'Multiple Linear Regerssion', self.OnMLRM),
+             (wx.ID_ANY, 'Multiple Linear Regression', 'Multiple Linear Regerssion', self.OnMLR),
+             (wx.ID_ANY, 'Multiple Linear Regression Test', 'Multiple Linear Regerssion', self.OnMLRt),
              (wx.ID_ANY, 'PCA', 'Principal component analysis', self.OnPCA),
              (wx.ID_ANY, 'PCA colored by y-value', 'PCA colored by y-value', self.OnPCAc),
              (wx.ID_ANY, 'PCA with subsets', 'PCA with subsets', self.OnPCAs),
@@ -610,9 +611,16 @@ class MainWindow(wx.Frame):
         tolog = log.read()
         self.__log(tolog)
 
-    def OnMLRM(self, event):
+    def OnMLR(self, event):
         self.__log('Multiple linear regression model ...')
-        exec_full(str(install_dir)+'MLRM.py')
+        exec_full(str(install_dir)+'MLR.py')
+        log = open('temp.log','r')
+        tolog = log.read()
+        self.__log(tolog)
+
+    def OnMLRt(self, event):
+        self.__log('Multiple linear regression test ...')
+        exec_full(str(install_dir)+'MLRt.py')
         log = open('temp.log','r')
         tolog = log.read()
         self.__log(tolog)
@@ -670,6 +678,7 @@ class MainWindow(wx.Frame):
             res.write("\nError propagation\n\n")
             res.write("a = "+str(mean1)+", +/- "+str(SD1)+"\n")
             res.write("b = "+str(mean2)+", +/- "+str(SD2)+"\n")
+            res.write("c = "+str(mean3)+", +/- "+str(SD3)+"\n")
             res.write("x = "+str(formula)+"\n")
             res.write("x = "+str(x)+"\n")
             res.close()
@@ -799,7 +808,7 @@ class DataSets(wx.Dialog):
         sizer.Add(rb, 0, wx.LEFT|wx.RIGHT|wx.BOTTOM, 20)
 
         line = wx.StaticLine(self, -1, size=(20,-1), style=wx.LI_HORIZONTAL)
-        sizer.Add(line, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.RIGHT|wx.TOP, 5)
+        sizer.Add(line, 0, wx.EXPAND |wx.RIGHT|wx.TOP, 5)
         
         btnsizer = wx.StdDialogButtonSizer()
         btn = wx.Button(self, wx.ID_OK)
@@ -840,54 +849,54 @@ class EPC(wx.Dialog):
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.mean1 = wx.TextCtrl(self, -1, "900", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.mean1, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, " +/- ")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.SD1 = wx.TextCtrl(self, -1, "30", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.SD1, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "b = ")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.mean2 = wx.TextCtrl(self, -1, "1500", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.mean2, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, " +/- ")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.SD2 = wx.TextCtrl(self, -1, "80", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.SD2, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "c = ")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.mean3 = wx.TextCtrl(self, -1, "50", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.mean3, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, " +/- ")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.SD3 = wx.TextCtrl(self, -1, "5", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.SD3, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "x = ")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.formula = wx.TextCtrl(self, -1, "(a-c)/(b-c)", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.formula, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         sizer.Add(grid_sizer, 1, 0, 10)
 
         line = wx.StaticLine(self, -1, size=(20,-1), style=wx.LI_HORIZONTAL)
-        sizer.Add(line, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.RIGHT|wx.TOP, 5)
+        sizer.Add(line, 0, wx.EXPAND |wx.RIGHT|wx.TOP, 5)
 
         btnsizer = wx.StdDialogButtonSizer()
         btn = wx.Button(self, wx.ID_OK)
@@ -923,47 +932,47 @@ class TestSD(wx.Dialog):
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.mean1 = wx.TextCtrl(self, -1, "1", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.mean1, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "SD #1:")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.SD1 = wx.TextCtrl(self, -1, "0.1", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.SD1, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "n #1:")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.n1 = wx.TextCtrl(self, -1, "3", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.n1, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "Mean #2:")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.mean2 = wx.TextCtrl(self, -1, "2", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.mean2, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "SD #2:")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.SD2 = wx.TextCtrl(self, -1, "0.1", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.SD2, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "n #2:")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.n2 = wx.TextCtrl(self, -1, "3", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.n2, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         sizer.Add(grid_sizer, 1, 0, 10)
 
         line = wx.StaticLine(self, -1, size=(20,-1), style=wx.LI_HORIZONTAL)
-        sizer.Add(line, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.RIGHT|wx.TOP, 5)
+        sizer.Add(line, 0, wx.EXPAND |wx.RIGHT|wx.TOP, 5)
 
         btnsizer = wx.StdDialogButtonSizer()
         btn = wx.Button(self, wx.ID_OK)
@@ -999,47 +1008,47 @@ class TestSEM(wx.Dialog):
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.mean1 = wx.TextCtrl(self, -1, "1", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.mean1, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "SEM #1:")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.SEM1 = wx.TextCtrl(self, -1, "0.1", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.SEM1, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "n #1:")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.n1 = wx.TextCtrl(self, -1, "3", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.n1, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "Mean #2:")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.mean2 = wx.TextCtrl(self, -1, "2", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.mean2, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "SEM #2:")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.SEM2 = wx.TextCtrl(self, -1, "0.1", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.SEM2, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         box = wx.BoxSizer(wx.HORIZONTAL)
         label = wx.StaticText(self, -1, "n #2:")
         box.Add(label, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
         self.n2 = wx.TextCtrl(self, -1, "3", size=(80,40), style=wx.TE_PROCESS_ENTER)
         box.Add(self.n2, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
-        grid_sizer.Add(box, 0, wx.GROW|wx.ALIGN_CENTRE|wx.ALL, 5)
+        grid_sizer.Add(box, 0, wx.EXPAND |wx.ALL, 5)
 
         sizer.Add(grid_sizer, 1, 0, 10)
 
         line = wx.StaticLine(self, -1, size=(20,-1), style=wx.LI_HORIZONTAL)
-        sizer.Add(line, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.RIGHT|wx.TOP, 5)
+        sizer.Add(line, 0, wx.EXPAND |wx.RIGHT|wx.TOP, 5)
 
         btnsizer = wx.StdDialogButtonSizer()
         btn = wx.Button(self, wx.ID_OK)

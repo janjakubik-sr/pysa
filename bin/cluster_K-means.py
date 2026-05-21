@@ -6,7 +6,6 @@ This is a temporary script file.
 """
 # import statements
 import os
-import sys
 import wx
 import numpy as np
 import matplotlib.pyplot as plt

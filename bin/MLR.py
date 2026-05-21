@@ -5,15 +5,13 @@ Created on Wed Nov  6 14:27:26 2024
 
 @author: Jan Jakubik jan.jakubik@fgu.cas.cz
 """
-import glob,os
+import os
 import time
 import wx
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import linear_model
 import scipy
-from scipy import stats
 
 #error log
 if os.path.isfile("temp.log"):
@@ -49,7 +47,7 @@ if dialog.ShowModal() == wx.ID_OK:
             rho=str("{0:.4f}".format(results[0]))
             p=str("{:.2e}".format(results[1]))
             #Save results
-            res_file=(str(base)+'_MLRM_out.res')
+            res_file=(str(base)+'_MLR_out.res')
             res=open(res_file,'w')
             res.write("\n\nSpearmans correlation statistics on "+str(selected)+"\n\n")
             res.write("Rho = "+str(rho)+"\n")

@@ -6,7 +6,6 @@ Created on Thu Feb 27 10:28:07 2020
 @author: Jan Jakubik jan.jakubik@fgu.cas.cz
 """
 import os
-import sys
 import wx
 import numpy as np
 import matplotlib.pyplot as plt

@@ -79,7 +79,7 @@ if dialog.ShowModal() == wx.ID_OK:
     dlg = wx.MessageDialog(None, msg, 'Calculte', wx.OK|wx.CANCEL)
     if dlg.ShowModal() == wx.ID_OK:
         with open(selected) as d:
-            reader = csv.reader(d, delimiter='\t', skipinitialspace=True)
+            reader = csv.reader(d, skipinitialspace=True)
             first_row = next(reader)
             num_cols = len(first_row)
             if num_cols == 3:

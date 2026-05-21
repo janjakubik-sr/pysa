@@ -7,7 +7,6 @@ Created on Thu Feb 27 10:28:07 2020
 """
 #import statements
 import os
-import sys
 import wx
 import numpy as np
 import hdbscan

@@ -39,7 +39,7 @@ if dialog.ShowModal() == wx.ID_OK:
         log.close()
     else:
         msg = ('Wrong column count\nQuiting')
-        dialog = wx.MessageDialog(self, msg, 'Error', wx.OK)
+        dialog = wx.MessageDialog(None, msg, 'Error', wx.OK)
         dialog.ShowModal()
         dialog.Destroy()
         log = open("temp.log","w")
