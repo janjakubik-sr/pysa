@@ -5,15 +5,12 @@ Created on Fri Jul 15 12:12:20 2016
 @author: Jan Jakubik jan.jakubik@fgu.cas.cz
 """
 
-import glob,os
-import sys
-import subprocess
+import os
 import time
 import wx
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.stats import ttest_ind, ttest_ind_from_stats
-from scipy.special import stdtr
+from scipy.stats import ttest_ind
 
 dialog = wx.FileDialog(None, "Welch\'s T-test: Choose a data file to test", os.getcwd(), "","*.dat", wx.FD_OPEN)
 if dialog.ShowModal() == wx.ID_OK:

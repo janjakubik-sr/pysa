@@ -23,8 +23,8 @@ if dialog.ShowModal() == wx.ID_OK:
     selected=dialog.GetPath()
     df = pd.read_csv(selected)
     if df.shape[0]>6:
-        msg = ('Perform PCA '+str(selected)+' ?')
-        dlg = wx.MessageDialog(None, msg, 'Sort', wx.OK|wx.CANCEL)
+        msg = ('Perform MLR '+str(selected)+' ?')
+        dlg = wx.MessageDialog(None, msg, 'Confirm', wx.OK|wx.CANCEL)
         if dlg.ShowModal() == wx.ID_OK:
             base=os.path.splitext(selected)[0]
             #Read data

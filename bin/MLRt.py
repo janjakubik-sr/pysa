@@ -25,7 +25,7 @@ if dialog.ShowModal() == wx.ID_OK:
     df = pd.read_csv(selected)
     if df.shape[0]>6:
         msg = ('Perform MLR '+str(selected)+' ?')
-        dlg = wx.MessageDialog(None, msg, 'Sort', wx.OK|wx.CANCEL)
+        dlg = wx.MessageDialog(None, msg, 'Confirm', wx.OK|wx.CANCEL)
         if dlg.ShowModal() == wx.ID_OK:
             base=os.path.splitext(selected)[0]
             #Read data
@@ -34,7 +34,17 @@ if dialog.ShowModal() == wx.ID_OK:
             y = df.iloc[:, -1]
             df['predicted']='' 
             # Split the dataset into training and testing sets
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+            ask = ('Enter test size \n')
+            dlg = wx.TextEntryDialog(None, ask,"Input","0.2")
+            if dlg.ShowModal() == wx.ID_OK:
+                	t_size = dlg.GetValue()
+            dlg.Destroy()
+            ask = ('Enter tracer seed value \nKeep same for reproducibility \n')
+            dlg = wx.TextEntryDialog(None, ask,"Input","42")
+            if dlg.ShowModal() == wx.ID_OK:
+                	t_seed = dlg.GetValue()
+            dlg.Destroy()
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=t_size, random_state=t_seed)
             # Train model
             regr = linear_model.LinearRegression()
             regr.fit(X_train, y_train)
